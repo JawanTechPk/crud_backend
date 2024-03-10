@@ -29,14 +29,18 @@ app.post("/api/signup", async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
 
     if (!firstName || !lastName || !email || !password) {
-      res.json("required fields are missing!");
+      res.json({
+        message: "required fields are missing!",
+        data: null,
+        status: false,
+      });
       return;
     }
 
     const emailExist = await UserModel.findOne({ email });
     console.log("emailExist", emailExist);
     if (emailExist !== null) {
-      res.json({
+      res.status(400).json({
         message: "Email already exist",
       });
       return;
@@ -52,6 +56,7 @@ app.post("/api/signup", async (req, res) => {
     console.log("response", response);
     res.json({
       message: "user Successfully SIGNUP!",
+      status: true,
     });
   } catch (error) {
     res.json({
