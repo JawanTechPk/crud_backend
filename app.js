@@ -2,12 +2,14 @@ import express from "express";
 import mongoose from "mongoose";
 import UserModel from "./models/UserSchema.js";
 import bcrypt from "bcryptjs";
+import cors from "cors";
 
 const app = express();
 const PORT = 5000 || process.env.PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 const uri = "mongodb+srv://admin:admin@crudapp.ael8koi.mongodb.net/";
 
